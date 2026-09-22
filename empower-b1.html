@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge Empower B1 Interaktif Çalışma & Test Platformu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent-blue: #38bdf8;
+            --accent-purple: #a855f7;
+            --accent-pink: #ec4899;
+            --accent-green: #22c55e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-glow: rgba(56, 189, 248, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(168, 85, 247, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(56, 189, 248, 0.15) 0%, transparent 40%);
+        }
+
+        /* Animated Header */
+        header {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-badge {
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+            font-size: 0.7rem;
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 20px;
+            -webkit-text-fill-color: initial;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-pills {
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 5px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .pill-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .pill-btn.active {
+            background: linear-gradient(135deg, var(--accent-blue), #2563eb);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            flex: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        /* Sidebar Nav */
+        aside {
+            width: 280px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            height: calc(100vh - 120px);
+            position: sticky;
+            top: 90px;
+            overflow-y: auto;
+        }
+
+        aside::-webkit-scrollbar {
+            width: 4px;
+        }
+        aside::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+
+        .unit-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .unit-item {
+            padding: 12px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid transparent;
+        }
+
+        .unit-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            transform: translateX(5px);
+        }
+
+        .unit-item.active {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-blue);
+            border-color: rgba(56, 189, 248, 0.3);
+        }
+
+        /* Main Display */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .search-bar-container {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px 24px;
+            border-radius: 16px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+        }
+
+        /* Cards & Animation */
+        .content-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: slideUp 0.5s ease forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple), var(--accent-pink));
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .section-tag {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin: 20px 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .box-highlight {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid var(--accent-purple);
+            padding: 14px 18px;
+            border-radius: 0 12px 12px 0;
+            margin: 12px 0;
+            font-size: 0.95rem;
+        }
+
+        .example-box {
+            border-left-color: var(--accent-pink);
+            background: rgba(236, 72, 153, 0.05);
+        }
+
+        /* Interactive Quiz Engine */
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .quiz-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .quiz-question {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #fff;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            padding: 14px 18px;
+            border-radius: 12px;
+            text-align: left;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-blue);
+        }
+
+        .option-btn.correct {
+            background: rgba(34, 197, 94, 0.2) !important;
+            border-color: var(--accent-green) !important;
+            color: var(--accent-green) !important;
+        }
+
+        .option-btn.wrong {
+            background: rgba(239, 68, 68, 0.2) !important;
+            border-color: #ef4444 !important;
+            color: #ef4444 !important;
+        }
+
+        .quiz-feedback {
+            margin-top: 12px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        /* Footer Rules */
+        footer {
+            background: rgba(15, 23, 42, 0.95);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .designer-tag {
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(79, 172, 254, 0.4);
+        }
+
+        .watermark-tr {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+        }
+
+        @media(max-width: 900px) {
+            .container { flex-direction: column; }
+            aside { width: 100%; height: auto; position: static; }
+            footer { flex-direction: column; gap: 15px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <span>EMPOWER B1</span>
+            <span class="logo-badge">PRO PLATFORM</span>
+        </div>
+        <div class="nav-pills">
+            <button class="pill-btn active" id="modeNotes">📚 Çalışma Notları</button>
+            <button class="pill-btn" id="modeQuiz">⚡ İnteraktif Test (Sınav Modu)</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside>
+            <ul class="unit-list" id="unitSidebar">
+                <li class="unit-item active" data-unit="all">🌟 Tüm Üniteler</li>
+                <li class="unit-item" data-unit="1">Unit 1: Communicating</li>
+                <li class="unit-item" data-unit="2">Unit 2: Travel & Tourism</li>
+                <li class="unit-item" data-unit="3">Unit 3: Money</li>
+                <li class="unit-item" data-unit="4">Unit 4: Social Life</li>
+                <li class="unit-item" data-unit="5">Unit 5: Work</li>
+                <li class="unit-item" data-unit="6">Unit 6: Problems & Advice</li>
+                <li class="unit-item" data-unit="7">Unit 7: Changes</li>
+                <li class="unit-item" data-unit="8">Unit 8: Culture</li>
+                <li class="unit-item" data-unit="9">Unit 9: Achievements</li>
+                <li class="unit-item" data-unit="10">Unit 10: Values</li>
+                <li class="unit-item" data-unit="11">Unit 11: Discovery</li>
+                <li class="unit-item" data-unit="12">Unit 12: Characters</li>
+            </ul>
+        </aside>
+
+        <main>
+            <div class="search-bar-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="Konu, gramer, kelime veya soru ara...">
+            </div>
+
+            <div id="displayArea">
+                <!-- Dynamic Content Loaded by JS -->
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div class="designer-tag">design by yigitt_guny</div>
+        <div class="watermark-tr">TR GÜNYE</div>
+    </footer>
+
+    <script>
+        // Data Structure
+        const unitsData = [
+            {
+                id: 1,
+                title: "Unit 1: Communicating",
+                grammar: "Question Forms (Soru Kalıpları)",
+                grammarDetail: "BE fiili ile: Soru Kelimesi + am/is/are/was/were + Özne\nDiğer Fiillerle: Soru Kelimesi + do/does/did + Özne + V1",
+                vocabulary: "Common Adjectives & Adverbs (Delicious, Awful, Absolutely, Fairly)",
+                everyday: "Long time no see!, What a lovely surprise!, We really must go.",
+                questions: [
+                    {
+                        q: "Why _______ you late to the English exam yesterday?",
+                        options: ["did", "were", "are", "have"],
+                        correct: 1
+                    },
+                    {
+                        q: "Which word intensifies an adjective the most?",
+                        options: ["fairly", "quite", "absolutely", "slightly"],
+                        correct: 2
+                    }
+                ]
+            },
+            {
+                id: 2,
+                title: "Unit 2: Travel and Tourism",
+                grammar: "Past Simple vs. Past Continuous (When / While)",
+                grammarDetail: "Devam eden eylem: Past Continuous (was/were + V-ing)\nAraya giren anlık eylem: Past Simple (V2)",
+                vocabulary: "Travel items: Suntan lotion, Backpack, Foreign currency",
+                everyday: "What time's the next train?, Could you tell me where the ticket office is?",
+                questions: [
+                    {
+                        q: "I _______ my book when the train suddenly arrived.",
+                        options: ["read", "was reading", "have read", "am reading"],
+                        correct: 1
+                    },
+                    {
+                        q: "If you lose your bag at the airport, you lost your _______.",
+                        options: ["currency", "backpack", "luggage", "guidebook"],
+                        correct: 2
+                    }
+                ]
+            },
+            {
+                id: 3,
+                title: "Unit 3: Money",
+                grammar: "Present Perfect vs. Past Simple",
+                grammarDetail: "Present Perfect: Zamanı belirsiz deneyimler (ever, never, yet, already).\nPast Simple: Zamanı netleşmiş geçmiş eylemler (yesterday, ago).",
+                vocabulary: "Discount, Bargain, Loan, Save up, Afford",
+                everyday: "Can I pay by card?, I'd like to return this, please.",
+                questions: [
+                    {
+                        q: "Have you _______ queued for black friday sales?",
+                        options: ["never", "ever", "yet", "did"],
+                        correct: 1
+                    },
+                    {
+                        q: "I _______ this laptop two years ago.",
+                        options: ["have bought", "buy", "bought", "was buying"],
+                        correct: 2
+                    }
+                ]
+            },
+            {
+                id: 4,
+                title: "Unit 4: Social Life",
+                grammar: "Future Forms (Present Continuous, Be Going To, Will)",
+                grammarDetail: "Present Continuous: Randevulu, kesinleşmiş plan.\nBe going to: Niyet/Kişisel plan.\nWill: Anlık karar / Tahmin.",
+                vocabulary: "Casual, Smart, Fashionable, Crowded, Historic",
+                everyday: "Are you doing anything tonight?, That sounds great!",
+                questions: [
+                    {
+                        q: "We _______ the doctor tonight at 8 PM. (Fixed appointment)",
+                        options: ["are meeting", "will meet", "meet", "met"],
+                        correct: 0
+                    }
+                ]
+            },
+            {
+                id: 5,
+                title: "Unit 5: Work",
+                grammar: "Modals of Obligation & Probability (Must, Have to, Might, Will)",
+                grammarDetail: "Must/Have to: Zorunluluk.\nDon't have to: Gerek yok (Zorunluluk yok).\nMight: Zayıf ihtimal.",
+                vocabulary: "Salary, Apply for a job, Resign, Full-time",
+                everyday: "Shall I help you with that?, Would you like me to...?",
+                questions: [
+                    {
+                        q: "You _______ wear a tie, it's a casual party. (No obligation)",
+                        options: ["mustn't", "don't have to", "might not", "can't"],
+                        correct: 1
+                    }
+                ]
+            },
+            {
+                id: 6,
+                title: "Unit 6: Problems and Advice",
+                grammar: "Should / Shouldn't & Infinitive of Purpose (To + V1)",
+                grammarDetail: "Tavsiye: Should/Shouldn't.\nAmaç Bildirme: To + V1 (I went to the store TO buy food).",
+                vocabulary: "Worry about, Listen to, Succeed in, -ed/-ing adjectives",
+                everyday: "What do you think I should do?, If I were you, I'd...",
+                questions: [
+                    {
+                        q: "The film was so _______ that I fell asleep.",
+                        options: ["bored", "boring", "bore", "bores"],
+                        correct: 1
+                    }
+                ]
+            },
+            {
+                id: 7,
+                title: "Unit 7: Changes",
+                grammar: "Comparatives/Superlatives & Used to",
+                grammarDetail: "Used to + V1: Geçmişte yapılan ama artık terk edilmiş alışkanlıklar.",
+                vocabulary: "Get fit, Get stressed, Go on a diet",
+                everyday: "What's the matter?, How long have you felt like this?",
+                questions: [
+                    {
+                        q: "I _______ play video games all day, but now I study for exams.",
+                        options: ["used to", "use to", "am used to", "was used to"],
+                        correct: 0
+                    }
+                ]
+            },
+            {
+                id: 8,
+                title: "Unit 8: Culture",
+                grammar: "The Passive (Present & Past Simple) & Present Perfect with For/Since",
+                grammarDetail: "Edilgen Çatı: Object + am/is/are/was/were + V3.\nFor: Süre bildirir. Since: Başlangıç anı.",
+                vocabulary: "Exhibition, Novel, Lyrics, Exhibition",
+                everyday: "I'm really sorry I'm late., That's OK, don't worry.",
+                questions: [
+                    {
+                        q: "This famous bridge _______ in 1895.",
+                        options: ["built", "was built", "is built", "has built"],
+                        correct: 1
+                    }
+                ]
+            },
+            {
+                id: 9,
+                title: "Unit 9: Achievements",
+                grammar: "First Conditional (If + Present, Will + V1) & Verb Patterns",
+                grammarDetail: "Gerçekleşmesi muhtemel koşul cümlesi.\nVerb Patterns: Want to go / Enjoy reading.",
+                vocabulary: "Degree, Fail an exam, Pass, Put through, Hang up",
+                everyday: "Could I speak to...?, Hold on a minute.",
+                questions: [
+                    {
+                        q: "If you _______ hard, you will pass the DEU proficiency exam.",
+                        options: ["studied", "study", "will study", "are studying"],
+                        correct: 1
+                    }
+                ]
+            },
+            {
+                id: 10,
+                title: "Unit 10: Values",
+                grammar: "Second Conditional (If + Past, Would + V1) & Quantifiers",
+                grammarDetail: "Hayali/İmkansız durumlar.\nToo much (Sayılamayan), Too many (Sayılabilen).",
+                vocabulary: "Steal, Lie, Honesty, Faulty, Refund",
+                everyday: "I'd like to return this., Can I have a refund?",
+                questions: [
+                    {
+                        q: "If I _______ a million dollars, I would buy a yacht.",
+                        options: ["have", "had", "would have", "will have"],
+                        correct: 1
+                    }
+                ]
+            },
+            {
+                id: 11,
+                title: "Unit 11: Discovery and Invention",
+                grammar: "Defining Relative Clauses (Who, Which, Where)",
+                grammarDetail: "Who (İnsan), Which/That (Nesne), Where (Yer).",
+                vocabulary: "Invent, Discover, Device, By chance",
+                everyday: "Go straight ahead, turn left, on the second floor.",
+                questions: [
+                    {
+                        q: "This is the university _______ I study English preparatory classes.",
+                        options: ["who", "which", "where", "that"],
+                        correct: 2
+                    }
+                ]
+            },
+            {
+                id: 12,
+                title: "Unit 12: Characters",
+                grammar: "Past Perfect (Had + V3) & Reported Speech",
+                grammarDetail: "Past Perfect: Geçmişin geçmişi.\nReported Speech: Aktarılan sözlerde tenses bir derece geçmişe kayar.",
+                vocabulary: "Generous, Reliable, Outgoing, Sibling",
+                everyday: "In my opinion..., I completely agree with you.",
+                questions: [
+                    {
+                        q: "When I got to the station, the train _______ already left.",
+                        options: ["has", "had", "was", "is"],
+                        correct: 1
+                    }
+                ]
+            }
+        ];
+
+        // State Management
+        let currentMode = 'notes'; // 'notes' or 'quiz'
+        let selectedUnitFilter = 'all';
+        let searchQuery = '';
+
+        // DOM Elements
+        const displayArea = document.getElementById('displayArea');
+        const modeNotesBtn = document.getElementById('modeNotes');
+        const modeQuizBtn = document.getElementById('modeQuiz');
+        const sidebar = document.getElementById('unitSidebar');
+        const searchInput = document.getElementById('searchInput');
+
+        // Mode Switching
+        modeNotesBtn.addEventListener('click', () => {
+            currentMode = 'notes';
+            modeNotesBtn.classList.add('active');
+            modeQuizBtn.classList.remove('active');
+            render();
+        });
+
+        modeQuizBtn.addEventListener('click', () => {
+            currentMode = 'quiz';
+            modeQuizBtn.classList.add('active');
+            modeNotesBtn.classList.remove('active');
+            render();
+        });
+
+        // Sidebar Filter
+        sidebar.addEventListener('click', (e) => {
+            const item = e.target.closest('.unit-item');
+            if (!item) return;
+
+            document.querySelectorAll('.unit-item').forEach(el => el.classList.remove('active'));
+            item.classList.add('active');
+
+            selectedUnitFilter = item.getAttribute('data-unit');
+            render();
+        });
+
+        // Search Input
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value.toLowerCase().trim();
+            render();
+        });
+
+        // Render Function
+        function render() {
+            displayArea.innerHTML = '';
+
+            let filteredUnits = unitsData.filter(u => {
+                const matchesUnit = selectedUnitFilter === 'all' || u.id.toString() === selectedUnitFilter;
+                const matchesSearch = searchQuery === '' || 
+                    u.title.toLowerCase().includes(searchQuery) ||
+                    u.grammar.toLowerCase().includes(searchQuery) ||
+                    u.vocabulary.toLowerCase().includes(searchQuery);
+                return matchesUnit && matchesSearch;
+            });
+
+            if (filteredUnits.length === 0) {
+                displayArea.innerHTML = `<div class="content-card"><h2 style="color:var(--text-muted)">Aramanıza uygun sonuç bulunamadı...</h2></div>`;
+                return;
+            }
+
+            if (currentMode === 'notes') {
+                filteredUnits.forEach(u => {
+                    const card = document.createElement('div');
+                    card.className = 'content-card';
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <div class="card-title">${u.title}</div>
+                        </div>
+                        <div class="section-tag">📌 Gramer / Dil Bilgisi</div>
+                        <div class="box-highlight"><strong>${u.grammar}</strong><br>${u.grammarDetail.replace(/\n/g, '<br>')}</div>
+                        
+                        <div class="section-tag">📖 Kelime Dağarcığı (Vocabulary)</div>
+                        <div class="box-highlight">${u.vocabulary}</div>
+
+                        <div class="section-tag">🗣️ Günlük Kullanım (Everyday English)</div>
+                        <div class="box-highlight example-box">${u.everyday}</div>
+                    `;
+                    displayArea.appendChild(card);
+                });
+            } else if (currentMode === 'quiz') {
+                filteredUnits.forEach(u => {
+                    const card = document.createElement('div');
+                    card.className = 'content-card';
+                    
+                    let questionsHTML = u.questions.map((q, qIndex) => {
+                        let optionsHTML = q.options.map((opt, optIndex) => `
+                            <button class="option-btn" onclick="checkAnswer(this, ${u.id}, ${qIndex}, ${optIndex})">${opt}</button>
+                        `).join('');
+
+                        return `
+                            <div class="quiz-card">
+                                <div class="quiz-question">Soru ${qIndex + 1}: ${q.q}</div>
+                                <div class="options-grid">${optionsHTML}</div>
+                                <div class="quiz-feedback" id="feedback-${u.id}-${qIndex}"></div>
+                            </div>
+                        `;
+                    }).join('');
+
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <div class="card-title">${u.title} - Test</div>
+                        </div>
+                        <div class="quiz-container">${questionsHTML}</div>
+                    `;
+                    displayArea.appendChild(card);
+                });
+            }
+        }
+
+        // Global Interactive Quiz Logic
+        window.checkAnswer = function(btn, unitId, qIndex, selectedOpt) {
+            const unit = unitsData.find(u => u.id === unitId);
+            const question = unit.questions[qIndex];
+            const parent = btn.closest('.options-grid');
+            const feedback = document.getElementById(`feedback-${unitId}-${qIndex}`);
+
+            // Disable all buttons in this question
+            parent.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+
+            if (selectedOpt === question.correct) {
+                btn.classList.add('correct');
+                feedback.style.color = 'var(--accent-green)';
+                feedback.innerText = '🔥 DOĞRU CEVAP! Harikasın!';
+            } else {
+                btn.classList.add('wrong');
+                // Show correct one
+                parent.children[question.correct].classList.add('correct');
+                feedback.style.color = '#ef4444';
+                feedback.innerText = '❌ YANLIŞ CEVAP. Doğru seçenek yeşil ile gösterildi.';
+            }
+            feedback.style.display = 'block';
+        };
+
+        // Initial Load
+        render();
+    </script>
+</body>
+</html>
