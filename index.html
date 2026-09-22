@@ -3,219 +3,314 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cambridge Empower B1 - İnteraktif Çalışma & Test Platformu</title>
+    <title>Cambridge Empower B1 - İnteraktif Hazırlık & Çalışma Platformu</title>
     
-    <!-- Google AdSense Code -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3908043142783315"
-     crossorigin="anonymous"></script>
+    <!-- Google AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3908043142783315" crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-3908043142783315">
 
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
+            --primary: #3b82f6;
+            --primary-dark: #1d4ed8;
             --bg: #0f172a;
-            --card-bg: #1e293b;
+            --surface: #1e293b;
+            --surface-card: #334155;
             --text: #f8fafc;
             --text-muted: #94a3b8;
             --accent: #10b981;
             --danger: #ef4444;
-            --border: #334155;
+            --border: #475569;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
             background-color: var(--bg);
             color: var(--text);
-            line-height: 1.6;
-            padding-bottom: 80px;
+            line-height: 1.7;
+            padding-bottom: 70px;
         }
 
         header {
-            background-color: var(--card-bg);
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             border-bottom: 1px solid var(--border);
-            padding: 2rem 1rem;
+            padding: 2.5rem 1rem;
             text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
         header h1 {
-            font-size: 2rem;
-            color: var(--text);
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
             margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
         }
 
         header p {
             color: var(--text-muted);
-            font-size: 1rem;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .container {
-            max-width: 1100px;
+        .ad-banner-top {
+            max-width: 1200px;
+            margin: 1.5rem auto 0;
+            padding: 1rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .main-layout {
+            max-width: 1200px;
             margin: 2rem auto;
             padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 2rem;
         }
 
+        @media (max-width: 868px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            height: fit-content;
+            position: sticky;
+            top: 1rem;
+        }
+
+        .sidebar h2 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .nav-btn {
+            width: 100%;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            color: #fff;
+            background-color: var(--primary);
+        }
+
+        /* Main Content */
         .search-box {
             width: 100%;
-            padding: 1rem;
-            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            border-radius: 10px;
             border: 1px solid var(--border);
-            background-color: var(--card-bg);
+            background-color: var(--surface);
             color: var(--text);
             font-size: 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             outline: none;
+            transition: border-color 0.2s;
         }
 
         .search-box:focus {
             border-color: var(--primary);
         }
 
-        .nav-tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 0.5rem;
-            overflow-x: auto;
-        }
-
-        .tab-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            border-radius: 6px;
-            transition: all 0.2s;
-        }
-
-        .tab-btn.active, .tab-btn:hover {
-            color: var(--text);
-            background-color: var(--card-bg);
-        }
-
-        .tab-btn.active {
-            border-bottom: 3px solid var(--primary);
-        }
-
-        .content-section {
+        .tab-content {
             display: none;
         }
 
-        .content-section.active {
+        .tab-content.active {
             display: block;
         }
 
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .card {
-            background-color: var(--card-bg);
+        .lesson-card {
+            background-color: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1.5rem;
-            transition: transform 0.2s, border-color 0.2s;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
         }
 
-        .card:hover {
-            transform: translateY(-3px);
-            border-color: var(--primary);
-        }
-
-        .card h3 {
+        .lesson-card h2 {
             color: var(--primary);
+            font-size: 1.5rem;
             margin-bottom: 0.75rem;
-            font-size: 1.25rem;
-        }
-
-        .card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .badge {
-            display: inline-block;
-            padding: 0.25rem 0.5rem;
-            background-color: rgba(37, 99, 235, 0.2);
+            background: rgba(59, 130, 246, 0.15);
             color: var(--primary);
-            border-radius: 4px;
             font-size: 0.8rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
             font-weight: 600;
-            margin-bottom: 0.5rem;
         }
 
-        /* Quiz Styles */
-        .quiz-card {
-            background-color: var(--card-bg);
+        .formula-box {
+            background-color: #0b1329;
+            border-left: 4px solid var(--primary);
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1rem 0;
+            font-family: monospace;
+            color: #e2e8f0;
+        }
+
+        .example-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .example-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #cbd5e1;
+        }
+
+        .example-list li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.4rem;
+            position: absolute;
+            left: 0;
+            top: -0.2rem;
+        }
+
+        .example-list li span {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.2rem;
+        }
+
+        /* Vocab Grid */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1rem;
+        }
+
+        .vocab-item {
+            background-color: var(--surface-card);
             border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1.5rem;
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+
+        .vocab-item h4 {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .vocab-item .meaning {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Quiz Module */
+        .quiz-card {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
             margin-bottom: 1.5rem;
         }
 
-        .quiz-question {
-            font-size: 1.1rem;
+        .quiz-q {
+            font-size: 1.15rem;
             font-weight: 600;
-            margin-bottom: 1rem;
+            margin-bottom: 1.25rem;
         }
 
-        .options-group {
+        .quiz-options {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.75rem;
         }
 
-        .option-btn {
+        .opt-btn {
             background-color: var(--bg);
             border: 1px solid var(--border);
             color: var(--text);
-            padding: 0.75rem 1rem;
-            border-radius: 6px;
+            padding: 0.85rem 1.25rem;
+            border-radius: 8px;
             text-align: left;
             cursor: pointer;
-            transition: background 0.2s;
+            font-size: 0.95rem;
+            transition: all 0.2s;
         }
 
-        .option-btn:hover {
-            background-color: var(--border);
+        .opt-btn:hover {
+            border-color: var(--primary);
+            background-color: var(--surface-card);
         }
 
-        .option-btn.correct {
-            background-color: var(--accent);
+        .opt-btn.correct {
+            background-color: var(--accent) !important;
             color: #fff;
             border-color: var(--accent);
         }
 
-        .option-btn.incorrect {
-            background-color: var(--danger);
+        .opt-btn.incorrect {
+            background-color: var(--danger) !important;
             color: #fff;
             border-color: var(--danger);
         }
 
-        .result-box {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            text-align: center;
-            font-size: 1.2rem;
+        .score-board {
             display: none;
+            background-color: var(--surface);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
         }
 
         footer {
@@ -223,9 +318,9 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background-color: var(--card-bg);
+            background-color: var(--surface);
             border-top: 1px solid var(--border);
-            padding: 1rem;
+            padding: 0.85rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -239,141 +334,198 @@
 
     <header>
         <h1>Cambridge Empower B1 Platform</h1>
-        <p>Gramer, Kelime Bilgisi ve İnteraktif Test Modülleri</p>
+        <p>İngilizce Gramer, Kelime Bilgisi ve İnteraktif Sınav Hazırlık Rehberi</p>
     </header>
 
-    <div class="container">
-        <input type="text" id="searchInput" class="search-box" placeholder="Konu, gramer yapısı veya kelime ara..." onkeyup="filterContent()">
+    <!-- Top Ad Placement -->
+    <div class="ad-banner-top">
+        <!-- AdSense Auto/Responsive Placement -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-3908043142783315"
+             data-ad-slot="auto"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
 
-        <div class="nav-tabs">
-            <button class="tab-btn active" onclick="switchTab('grammar')">Gramer (Grammar)</button>
-            <button class="tab-btn" onclick="switchTab('vocabulary')">Kelime Bilgisi (Vocabulary)</button>
-            <button class="tab-btn" onclick="switchTab('speaking')">Konuşma & Dinleme</button>
-            <button class="tab-btn" onclick="switchTab('quiz')">İnteraktif Testler</button>
-        </div>
+    <div class="main-layout">
+        <!-- Sidebar Menu -->
+        <aside class="sidebar">
+            <h2>Modüller</h2>
+            <ul class="nav-menu">
+                <li><button class="nav-btn active" onclick="switchTab('grammar', this)">📘 Gramer Rehberi</button></li>
+                <li><button class="nav-btn" onclick="switchTab('vocab', this)">📗 Kelime Bilgisi</button></li>
+                <li><button class="nav-btn" onclick="switchTab('speaking', this)">🗣️ Speaking & Diyalog</button></li>
+                <li><button class="nav-btn" onclick="switchTab('quiz', this)">📝 İnteraktif Testler</button></li>
+            </ul>
+        </aside>
 
-        <!-- GRAMMAR SECTION -->
-        <section id="grammar" class="content-section active">
-            <div class="grid-container">
-                <div class="card">
-                    <span class="badge">Unit 1-2</span>
-                    <h3>Present Perfect vs Past Simple</h3>
-                    <p>Tamamlanmış geçmiş eylemler (Past Simple) ile deneyim ve süreç belirten durumların (Present Perfect) karşılaştırılması.</p>
-                    <small>Örnek: <i>"I have lived here for 3 years"</i> vs <i>"I lived in Izmir in 2020"</i>.</small>
-                </div>
+        <!-- Main Content Area -->
+        <main class="content">
+            <input type="text" id="searchInput" class="search-box" placeholder="Konu, gramer kuralı veya kelime ara..." onkeyup="filterContent()">
 
-                <div class="card">
-                    <span class="badge">Unit 3-4</span>
-                    <h3>Conditionals (Type 1 & Type 2)</h3>
-                    <p>Gelecek olasılıkları (First Conditional) ve hayali/varsayımsal senaryolar (Second Conditional).</p>
-                    <small>Örnek: <i>"If I study, I will pass"</i> / <i>"If I had time, I would travel"</i>.</small>
-                </div>
+            <!-- GRAMMAR TAB -->
+            <section id="grammar" class="tab-content active">
+                
+                <article class="lesson-card">
+                    <h2>Present Perfect vs. Past Simple <span class="badge">Unit 1-2</span></h2>
+                    <p>Geçmişte belirli bir zamanda gerçekleşmiş ve tamamlanmış eylemler için <b>Past Simple</b>; zamanı belirsiz, etkisi devam eden veya kişisel deneyimleri anlatırken <b>Present Perfect</b> kullanılır.</p>
+                    
+                    <div class="formula-box">
+                        Present Perfect: Subject + have/has + V3 (Past Participle)<br>
+                        Past Simple: Subject + V2 (Past Form)
+                    </div>
 
-                <div class="card">
-                    <span class="badge">Unit 5-6</span>
-                    <h3>Passive Voice (Edilgen Yapı)</h3>
-                    <p>Eylemi yapanın değil, yapılan eylemin önemli olduğu durumlar için Present ve Past Passive kullanımı.</p>
-                    <small>Örnek: <i>"The report was prepared yesterday."</i></small>
-                </div>
-
-                <div class="card">
-                    <span class="badge">Unit 7-8</span>
-                    <h3>Modal Verbs (Must, Should, Have to)</h3>
-                    <p>Zorunluluk, tavsiye ve yasaklama belirten kip eklerinin detaylı kullanımı.</p>
-                    <small>Örnek: <i>"You must wear a helmet"</i>, <i>"You should rest"</i>.</small>
-                </div>
-            </div>
-        </section>
-
-        <!-- VOCABULARY SECTION -->
-        <section id="vocabulary" class="content-section">
-            <div class="grid-container">
-                <div class="card">
-                    <span class="badge">Topic 1</span>
-                    <h3>Business & Work Environment</h3>
-                    <p>İş hayatı, kariyer planlama, e-posta yazımı ve profesyonel terimler.</p>
-                    <ul>
-                        <li><strong>Schedule:</strong> Program / Takvim</li>
-                        <li><strong>Deadline:</strong> Son teslim tarihi</li>
-                        <li><strong>Inquire:</strong> Bilgi almak / Sormak</li>
+                    <ul class="example-list">
+                        <li>I <b>have visited</b> London twice. <span>(Hayatım boyunca 2 kez bulundum - zamanı belirsiz deneyim.)</span></li>
+                        <li>I <b>visited</b> London in 2021. <span>(2021 yılında ziyaret ettim - zamanı kesin geçmiş eylem.)</span></li>
+                        <li>She <b>has lost</b> her keys. <span>(Anahtarlarını kaybetti - etkisi sürüyor, şu an anahtarları yok.)</span></li>
                     </ul>
-                </div>
+                </article>
 
-                <div class="card">
-                    <span class="badge">Topic 2</span>
-                    <h3>Travel & Transport</h3>
-                    <p>Ulaşım, rotalar, teslimat ve seyahat terimleri.</p>
-                    <ul>
-                        <li><strong>Departure:</strong> Kalkış / Hareket</li>
-                        <li><strong>Destination:</strong> Varış noktası</li>
-                        <li><strong>Delay:</strong> Gecikme / Rötar</li>
+                <article class="lesson-card">
+                    <h2>Conditionals (Type 1 & Type 2) <span class="badge">Unit 3-4</span></h2>
+                    <p><b>First Conditional (Type 1)</b> gelecekte gerçekleşmesi muhtemel durumlar için kullanılır. <b>Second Conditional (Type 2)</b> ise şimdiki zamanda veya gelecekte hayali/varsayımsal durumları ifade eder.</p>
+
+                    <div class="formula-box">
+                        Type 1: If + Present Simple, WILL + V1<br>
+                        Type 2: If + Past Simple, WOULD + V1
+                    </div>
+
+                    <ul class="example-list">
+                        <li>If it <b>rains</b> tomorrow, we <b>will cancel</b> the meeting. <span>(Geleceğe dair gerçekçi olasılık.)</span></li>
+                        <li>If I <b>had</b> more free time, I <b>would travel</b> around the world. <span>(Şu an için hayali/varsayımsal durum.)</span></li>
                     </ul>
-                </div>
+                </article>
 
-                <div class="card">
-                    <span class="badge">Topic 3</span>
-                    <h3>Personal Goals & Daily Routines</h3>
-                    <p>Günlük alışkanlıklar, gelişim hedefleri ve zaman yönetimi kalıpları.</p>
-                    <ul>
-                        <li><strong>Achieve:</strong> Başarmak / Elde etmek</li>
-                        <li><strong>Improve:</strong> Geliştirmek</li>
-                        <li><strong>Consistency:</strong> Tutarlılık</li>
+                <article class="lesson-card">
+                    <h2>Passive Voice (Edilgen Yapı) <span class="badge">Unit 5-6</span></h2>
+                    <p>Eylemi gerçekleştiren özne yerine eylemin kendisine veya etkilenen nesneye odaklanmak istendiğinde kullanılır.</p>
+
+                    <div class="formula-box">
+                        Present Passive: Am/Is/Are + V3<br>
+                        Past Passive: Was/Were + V3
+                    </div>
+
+                    <ul class="example-list">
+                        <li>Thousands of emails <b>are sent</b> every day. <span>(Geniş zaman edilgen.)</span></li>
+                        <li>The contract <b>was signed</b> by the manager yesterday. <span>(Geçmiş zaman edilgen.)</span></li>
                     </ul>
-                </div>
-            </div>
-        </section>
+                </article>
 
-        <!-- SPEAKING SECTION -->
-        <section id="speaking" class="content-section">
-            <div class="grid-container">
-                <div class="card">
-                    <h3>Opinions & Agreement</h3>
-                    <p>Fikir belirtme ve katılma/katılmama kalıpları:</p>
-                    <p><i>"In my opinion..."</i> / <i>"I completely agree with you."</i> / <i>"I see your point, but..."</i></p>
-                </div>
-                <div class="card">
-                    <h3>Making Suggestions</h3>
-                    <p>Öneri sunma ve plan yapma:</p>
-                    <p><i>"Why don't we...?"</i> / <i>"How about starting with...?"</i> / <i>"Let's focus on..."</i></p>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- QUIZ SECTION -->
-        <section id="quiz" class="content-section">
-            <div id="quizContainer">
+            <!-- VOCABULARY TAB -->
+            <section id="vocab" class="tab-content">
+                <article class="lesson-card">
+                    <h2>İş Dünyası & Profesyonel Terimler <span class="badge">Business B1</span></h2>
+                    <p>Kurumsal iletişim ve iş süreçlerinde sık karşılaşılan B1 seviye kelimeler.</p>
+                    
+                    <div class="vocab-grid">
+                        <div class="vocab-item">
+                            <h4>Schedule</h4>
+                            <div class="meaning">Program / Zaman Çizelgesi</div>
+                            <p><i>"We need to stick to our daily schedule."</i></p>
+                        </div>
+                        <div class="vocab-item">
+                            <h4>Deadline</h4>
+                            <div class="meaning">Son Teslim Tarihi</div>
+                            <p><i>"The deadline for the project is Friday."</i></p>
+                        </div>
+                        <div class="vocab-item">
+                            <h4>Inquire</h4>
+                            <div class="meaning">Sormak / Bilgi İstemek</div>
+                            <p><i>"I am writing to inquire about the job position."</i></p>
+                        </div>
+                        <div class="vocab-item">
+                            <h4>Negotiate</h4>
+                            <div class="meaning">Pazarlık Etmek / Müzakere</div>
+                            <p><i>"They managed to negotiate a better deal."</i></p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="lesson-card">
+                    <h2>Seyahat & Lojistik Terimleri <span class="badge">Transport & Travel</span></h2>
+                    <p>Ulaşım ve seyahat senaryolarında kullanılan temel yapılar.</p>
+
+                    <div class="vocab-grid">
+                        <div class="vocab-item">
+                            <h4>Destination</h4>
+                            <div class="meaning">Varış Noktası</div>
+                            <p><i>"It took 4 hours to reach our destination."</i></p>
+                        </div>
+                        <div class="vocab-item">
+                            <h4>Delay</h4>
+                            <div class="meaning">Gecikme / Rötar</div>
+                            <p><i>"Due to heavy rain, there was a short delay."</i></p>
+                        </div>
+                        <div class="vocab-item">
+                            <h4>Confirm</h4>
+                            <div class="meaning">Onaylamak</div>
+                            <p><i>"Please confirm your booking in advance."</i></p>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <!-- SPEAKING TAB -->
+            <section id="speaking" class="tab-content">
+                <article class="lesson-card">
+                    <h2>Fikir Belirtme ve Katılma Kalıpları</h2>
+                    <ul class="example-list">
+                        <li><b>In my view / In my opinion...</b> <span>(Bence / Benim görüşüme göre...)</span></li>
+                        <li><b>I completely agree with you.</b> <span>(Sana tamamen katılıyorum.)</span></li>
+                        <li><b>I see your point, but...</b> <span>(Ne demek istediğini anlıyorum ama...)</span></li>
+                    </ul>
+                </article>
+
+                <article class="lesson-card">
+                    <h2>Öneri ve Tavsiyede Bulunma</h2>
+                    <ul class="example-list">
+                        <li><b>Why don't we...?</b> <span>(Neden yapmıyoruz?)</span></li>
+                        <li><b>How about / What about + V-ing...?</b> <span>(Yapmaya ne dersin?)</span></li>
+                        <li><b>If I were you, I would...</b> <span>(Senin yerinde olsaydım...)</span></li>
+                    </ul>
+                </article>
+            </section>
+
+            <!-- QUIZ TAB -->
+            <section id="quiz" class="tab-content">
                 <div class="quiz-card" data-correct="1">
-                    <div class="quiz-question">1. "If I _____ enough money, I would buy a new car." cümlesinde boşluğa ne gelmelidir?</div>
-                    <div class="options-group">
-                        <button class="option-btn" onclick="checkAnswer(this, 0)">A) have</button>
-                        <button class="option-btn" onclick="checkAnswer(this, 1)">B) had</button>
-                        <button class="option-btn" onclick="checkAnswer(this, 2)">C) will have</button>
+                    <div class="quiz-q">1. "If I _____ enough time tomorrow, I will call you." cümlesindeki boşluğa ne gelmelidir?</div>
+                    <div class="quiz-options">
+                        <button class="opt-btn" onclick="checkAnswer(this, 0)">A) had</button>
+                        <button class="opt-btn" onclick="checkAnswer(this, 1)">B) have</button>
+                        <button class="opt-btn" onclick="checkAnswer(this, 2)">C) will have</button>
                     </div>
                 </div>
 
                 <div class="quiz-card" data-correct="2">
-                    <div class="quiz-question">2. "The email _____ sent by the manager yesterday." boşluğa uygun yapı hangisidir?</div>
-                    <div class="options-group">
-                        <button class="option-btn" onclick="checkAnswer(this, 0)">A) is</button>
-                        <button class="option-btn" onclick="checkAnswer(this, 1)">B) has been</button>
-                        <button class="option-btn" onclick="checkAnswer(this, 2)">C) was</button>
+                    <div class="quiz-q">2. "The new bridge _____ built last year." cümlesine uygun pasif yapı hangisidir?</div>
+                    <div class="quiz-options">
+                        <button class="opt-btn" onclick="checkAnswer(this, 0)">A) is</button>
+                        <button class="opt-btn" onclick="checkAnswer(this, 1)">B) has been</button>
+                        <button class="opt-btn" onclick="checkAnswer(this, 2)">C) was</button>
                     </div>
                 </div>
 
                 <div class="quiz-card" data-correct="0">
-                    <div class="quiz-question">3. "I have known him _____ 2021." hangisi doğrudur?</div>
-                    <div class="options-group">
-                        <button class="option-btn" onclick="checkAnswer(this, 0)">A) since</button>
-                        <button class="option-btn" onclick="checkAnswer(this, 1)">B) for</button>
-                        <button class="option-btn" onclick="checkAnswer(this, 2)">C) in</button>
+                    <div class="quiz-q">3. "I haven't seen him _____ last Tuesday." boşluğa ne gelmelidir?</div>
+                    <div class="quiz-options">
+                        <button class="opt-btn" onclick="checkAnswer(this, 0)">A) since</button>
+                        <button class="opt-btn" onclick="checkAnswer(this, 1)">B) for</button>
+                        <button class="opt-btn" onclick="checkAnswer(this, 2)">C) in</button>
                     </div>
                 </div>
-            </div>
 
-            <div id="resultBox" class="result-box">
-                Tebrikler! Testi tamamladınız. Skorunuz: <span id="scoreText">0</span> / 3
-            </div>
-        </section>
+                <div id="scoreBoard" class="score-board">
+                    <h2>Test Tamamlandı! 🎉</h2>
+                    <p style="margin-top:0.5rem; font-size:1.2rem;">Toplam Doğru Sayınız: <b id="scoreVal">0</b> / 3</p>
+                </div>
+            </section>
+        </main>
     </div>
 
     <footer>
@@ -382,51 +534,50 @@
     </footer>
 
     <script>
-        function switchTab(tabId) {
-            document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             
             document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
+            btn.classList.add('active');
         }
 
         function filterContent() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.querySelectorAll('.card');
+            let query = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.querySelectorAll('.lesson-card, .vocab-item');
 
             cards.forEach(card => {
                 let text = card.innerText.toLowerCase();
-                if (text.includes(input)) {
-                    card.style.display = "block";
+                if (text.includes(query)) {
+                    card.style.display = "";
                 } else {
                     card.style.display = "none";
                 }
             });
         }
 
-        let answeredCount = 0;
+        let answered = 0;
         let score = 0;
 
-        function checkAnswer(btn, optionIndex) {
-            let quizCard = btn.closest('.quiz-card');
-            let correctIndex = parseInt(quizCard.getAttribute('data-correct'));
-            let buttons = quizCard.querySelectorAll('.option-btn');
+        function checkAnswer(btn, optIndex) {
+            let card = btn.closest('.quiz-card');
+            let correct = parseInt(card.getAttribute('data-correct'));
+            let options = card.querySelectorAll('.opt-btn');
 
-            buttons.forEach(b => b.disabled = true);
+            options.forEach(o => o.disabled = true);
 
-            if (optionIndex === correctIndex) {
+            if (optIndex === correct) {
                 btn.classList.add('correct');
                 score++;
             } else {
                 btn.classList.add('incorrect');
-                buttons[correctIndex].classList.add('correct');
+                options[correct].classList.add('correct');
             }
 
-            answeredCount++;
-            if (answeredCount === document.querySelectorAll('.quiz-card').length) {
-                let resultBox = document.getElementById('resultBox');
-                document.getElementById('scoreText').innerText = score;
-                resultBox.style.display = 'block';
+            answered++;
+            if (answered === document.querySelectorAll('.quiz-card').length) {
+                document.getElementById('scoreVal').innerText = score;
+                document.getElementById('scoreBoard').style.display = 'block';
             }
         }
     </script>
